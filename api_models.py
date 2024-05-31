@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, ValidationError
+from category import category_router
 
 app = FastAPI()
+
+app.include_router(category_router)
+
 
 
 class Item(BaseModel):
@@ -17,6 +21,7 @@ try:
 except ValidationError as exc:
     print(repr(exc.errors()[0]['type']))
     #> 'missing'
+
 
 
 @app.post('/items/')
