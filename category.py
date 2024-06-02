@@ -75,3 +75,14 @@ async def category_update(id: int, category: CategoryModel):
         return jsonable_encoder(data)
 
     return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
+
+
+@category_router.delete("/{id}")
+async def category_delete(id: int):
+    check_category = session.query(Category).filter(Category.id == id).first()
+    if check_category:
+        session.delete(check_category)
+        session.commit()
+        return HTTPException(status_code=status.HTTP_200_OK)
+    return HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+

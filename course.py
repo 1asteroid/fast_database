@@ -85,3 +85,13 @@ async def course_update(id: int, course: CourseModel):
         return jsonable_encoder(data)
 
     return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
+
+
+@course_router.delete("/{id}")
+async def course_delete(id: int):
+    check_course = session.query(Course).filter(Course.id == id).first()
+    if check_course:
+        session.delete(check_course)
+        session.commit()
+        return HTTPException(status_code=status.HTTP_200_OK)
+    return HTTPException(status_code=status.HTTP_404_NOT_FOUND)
