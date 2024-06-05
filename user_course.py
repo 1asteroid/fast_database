@@ -31,7 +31,9 @@ async def course_of_user(id: int):
     courses_users = session.query(UserCourse).filter(UserCourse.users_id == id)
     courses = []
     for i in courses_users:
-        courses.append(session.query(Course).filter(Course.id == i.users_id).first())
+        courses.append(session.query(Course).filter(Course.id == i.course_id).first())
+
+    print(courses)
 
     cors = [
 
