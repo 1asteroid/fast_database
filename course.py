@@ -57,6 +57,7 @@ async def course_create(course: CourseModel):
     return HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="category not found")
 
 
+
 @course_router.get("/{id}")
 async def course_only(id: int):
     course = session.query(Course).filter(Course.id == id).first()

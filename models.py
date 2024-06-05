@@ -3,14 +3,14 @@ from sqlalchemy.orm import relationship
 from database import Base
 
 
-class User(Base):
-    __tablename__ = 'user'
+class Users(Base):
+    __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     first_name = Column(String(30), nullable=True)
     last_name = Column(String(30), nullable=True)
     email = Column(String(40), nullable=True)
     username = Column(String(50))
-    password = Column(String(50))
+    password = Column(Text)
     user_course = relationship('UserCourse', back_populates='user')
 
 
@@ -35,7 +35,7 @@ class Course(Base):
 class UserCourse(Base):
     __tablename__ = 'user_course'
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    user = relationship('User', back_populates='user_course')
+    users_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('Users', back_populates='user_course')
     course_id = Column(Integer, ForeignKey('course.id'))
     course = relationship('Course', back_populates='user_course')

@@ -2,12 +2,15 @@ from fastapi import FastAPI
 from pydantic import BaseModel, ValidationError
 from category import category_router
 from course import course_router
+from users import auth_router
+from user_course import buy_router
 
 app = FastAPI()
 
 app.include_router(category_router)
 app.include_router(course_router)
-
+app.include_router(auth_router)
+app.include_router(buy_router)
 
 
 class Item(BaseModel):
